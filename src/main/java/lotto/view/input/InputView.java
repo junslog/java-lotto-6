@@ -19,6 +19,10 @@ public class InputView {
         return inputParser.parseToWinningLottoNumbers(readLine());
     }
 
+    public int getBonusNumber() {
+        return inputParser.parseToBonusNumber(readLine());
+    }
+
     public String readLine() {
         return Console.readLine();
     }

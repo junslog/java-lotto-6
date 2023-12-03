@@ -3,6 +3,7 @@ package lotto.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
 import lotto.domain.UserMoney;
 import lotto.domain.WinningLottoNumbers;
@@ -26,6 +27,7 @@ public class LottoController {
         List<Lotto> generatedLottos = LottoFactory.generateAutoLottosByMoney(userMoney);
         printUserLottos(generatedLottos);
         WinningLottoNumbers winningLottoNumbers = getWinningLottoNumbers();
+        BonusNumber bonusNumber = getBonusNumber(winningLottoNumbers);
     }
 
     private UserMoney getUserMoney() {
@@ -55,6 +57,13 @@ public class LottoController {
         return readUserInput(() -> {
             outputView.askToInsertWinningLottoNumbers();
             return new WinningLottoNumbers(inputView.getWinningLottoNumbers());
+        });
+    }
+
+    private BonusNumber getBonusNumber(WinningLottoNumbers winningLottoNumbers) {
+        return readUserInput(() -> {
+            outputView.askToInsertBonusNumber();
+            return new BonusNumber(inputView.getBonusNumber(), winningLottoNumbers);
         });
     }
 

@@ -1,6 +1,7 @@
 package lotto.view.output;
 
 import static lotto.view.output.constant.OutputFormatConstant.PRINT_NUMBER_OF_LOTTOS_BOUGHT_FORMAT;
+import static lotto.view.output.constant.OutputMessageConstant.ASK_TO_INSERT_BONUS_NUMBER;
 import static lotto.view.output.constant.OutputMessageConstant.ASK_TO_INSERT_LOTTO_MONEY;
 import static lotto.view.output.constant.OutputMessageConstant.ASK_TO_INSERT_WINNING_LOTTO_NUMBERS;
 import static lotto.view.output.constant.OutputSymbolConstant.LOTTO_NUMBER_JOINING_DELIMITER;
@@ -56,4 +57,9 @@ public class OutputView {
     }
 
 
+    public void askToInsertBonusNumber() {
+        printLine();
+        print(ASK_TO_INSERT_BONUS_NUMBER.getMessage());
+        printLine();
+    }
 }

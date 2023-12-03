@@ -7,6 +7,7 @@ import static lotto.view.input.constant.InputSymbolConstant.WINNING_LOTTO_NUMBER
 
 import java.util.Arrays;
 import java.util.List;
+import lotto.view.input.validator.BonusNumberValidator;
 import lotto.view.input.validator.UserMoneyInputValidator;
 import lotto.view.input.validator.WinningLottoNumberValidator;
 import lotto.view.input.validator.WinningLottoNumbersValidator;
@@ -16,11 +17,13 @@ public class InputParser {
     private final UserMoneyInputValidator userMoneyInputValidator;
     private final WinningLottoNumbersValidator winningLottoNumbersValidator;
     private final WinningLottoNumberValidator winningLottoNumberValidator;
+    private final BonusNumberValidator bonusNumberValidator;
 
     public InputParser() {
         this.userMoneyInputValidator = new UserMoneyInputValidator();
         this.winningLottoNumbersValidator = new WinningLottoNumbersValidator();
         this.winningLottoNumberValidator = new WinningLottoNumberValidator();
+        this.bonusNumberValidator = new BonusNumberValidator();
     }
 
     public long parseToUserMoney(String userInput) {
@@ -36,12 +39,19 @@ public class InputParser {
         return parseToInts(userInput);
     }
 
+    public int parseToBonusNumber(String userInput) {
+        userInput = removeBlank(userInput);
+        bonusNumberValidator.validate(userInput);
+        return parseToInt(userInput);
+    }
+
     private List<Integer> parseToInts(String userInput) {
         return Arrays.stream(userInput.split(WINNING_LOTTO_NUMBER_DELIMITER.getSymbol()))
                 .mapToInt(this::parseToInt)
                 .boxed()
                 .toList();
     }
+
 
     private int parseToInt(String userInput) {
         return Integer.parseInt(userInput);
