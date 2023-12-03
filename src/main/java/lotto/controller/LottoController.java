@@ -1,8 +1,8 @@
 package lotto.controller;
 
 import java.util.function.Supplier;
+import lotto.domain.UserMoney;
 import lotto.view.input.InputView;
-import lotto.view.input.exception.InputException;
 import lotto.view.output.OutputView;
 
 public class LottoController {
@@ -15,7 +15,14 @@ public class LottoController {
     }
 
     public void execute() {
+        UserMoney userMoney = getUserMoney();
+    }
 
+    private UserMoney getUserMoney() {
+        return readUserInput(() -> {
+            outputView.askToInsertMoney();
+            return new UserMoney(inputView.getUserMoney());
+        });
     }
 
 
@@ -23,7 +30,7 @@ public class LottoController {
         while (true) {
             try {
                 return supplier.get();
-            } catch (InputException e) {
+            } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }

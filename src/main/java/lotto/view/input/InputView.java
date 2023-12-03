@@ -10,6 +10,10 @@ public class InputView {
         this.inputParser = new InputParser();
     }
 
+    public long getUserMoney() {
+        return inputParser.parseToUserMoney(readLine());
+    }
+
     public String readLine() {
         return Console.readLine();
     }
