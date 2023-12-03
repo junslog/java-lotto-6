@@ -15,7 +15,7 @@ public class WinningLottoNumbers {
                 .toList();
     }
 
-    public boolean includesNumber(final int lottoNumber) {
-        return winningLottoNumbers.contains(new LottoNumber(lottoNumber));
+    public boolean includesNumber(LottoNumber lottoNumber) {
+        return winningLottoNumbers.contains(lottoNumber);
     }
 }

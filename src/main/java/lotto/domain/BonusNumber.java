@@ -8,11 +8,11 @@ public class BonusNumber {
     private final LottoNumber bonusNumber;
 
     public BonusNumber(final int lottoNumber, WinningLottoNumbers winningLottoNumbers) {
+        validate(parseToLottoNumber(lottoNumber), winningLottoNumbers);
         bonusNumber = parseToLottoNumber(lottoNumber);
-        validate(lottoNumber, winningLottoNumbers);
     }
 
-    private void validate(int lottoNumber, WinningLottoNumbers winningLottoNumbers) {
+    private void validate(LottoNumber lottoNumber, WinningLottoNumbers winningLottoNumbers) {
         if (winningLottoNumbers.includesNumber(lottoNumber)) {
             throw DomainConstraintException.of(BONUS_NUMBER_IS_DUPLICATED_WITH_WINNING_LOTTO_NUMBERS.getMessage());
         }
@@ -20,5 +20,9 @@ public class BonusNumber {
 
     private LottoNumber parseToLottoNumber(final int lottoNumber) {
         return new LottoNumber(lottoNumber);
+    }
+
+    public LottoNumber getBonusNumber() {
+        return bonusNumber;
     }
 }

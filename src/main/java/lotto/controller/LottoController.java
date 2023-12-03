@@ -1,15 +1,19 @@
 package lotto.controller;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.function.Supplier;
 import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
+import lotto.domain.LottoMachine;
+import lotto.domain.LottoResult;
 import lotto.domain.UserMoney;
 import lotto.domain.WinningLottoNumbers;
 import lotto.domain.util.LottoFactory;
 import lotto.dto.BoughtLottoNumbersDto;
 import lotto.dto.BoughtLottoNumbersDtos;
+import lotto.dto.TotalResultDto;
 import lotto.view.input.InputView;
 import lotto.view.output.OutputView;
 
@@ -26,8 +30,11 @@ public class LottoController {
         UserMoney userMoney = getUserMoney();
         List<Lotto> generatedLottos = LottoFactory.generateAutoLottosByMoney(userMoney);
         printUserLottos(generatedLottos);
+
         WinningLottoNumbers winningLottoNumbers = getWinningLottoNumbers();
         BonusNumber bonusNumber = getBonusNumber(winningLottoNumbers);
+        LottoMachine lottoMachine = new LottoMachine(winningLottoNumbers, bonusNumber);
+        printTotalResult(lottoMachine, generatedLottos, userMoney);
     }
 
     private UserMoney getUserMoney() {
@@ -67,6 +74,16 @@ public class LottoController {
         });
     }
 
+    private void printTotalResult(LottoMachine lottoMachine, List<Lotto> generatedLottos, UserMoney userMoney) {
+        EnumMap<LottoResult, Integer> lottoResults = LottoResult.provideEmptyResultMap();
+        generatedLottos.forEach(
+                generatedLotto -> {
+                    LottoResult lottoResult = lottoMachine.calculateLottoResult(generatedLotto);
+                    lottoResults.put(lottoResult, lottoResults.get(lottoResult) + 1);
+                });
+        double rateOfReturn = lottoMachine.calculateRateOfReturn(lottoResults, userMoney.getUserMoney());
+        outputView.printTotalResult(new TotalResultDto(lottoResults, rateOfReturn));
+    }
 
     private <T> T readUserInput(Supplier<T> supplier) {
         while (true) {
