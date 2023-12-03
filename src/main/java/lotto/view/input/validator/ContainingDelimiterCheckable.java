@@ -14,8 +14,9 @@ public interface ContainingDelimiterCheckable {
         }
     }
 
-    default void validateIsNotEndWithDelimiter(String userInput) {
-        if (userInput.endsWith(WINNING_LOTTO_NUMBER_DELIMITER.getSymbol())) {
+    default void validateIsNotStartsWithOrEndWithDelimiter(String userInput) {
+        if (userInput.startsWith(WINNING_LOTTO_NUMBER_DELIMITER.getSymbol()) || userInput.endsWith(
+                WINNING_LOTTO_NUMBER_DELIMITER.getSymbol())) {
             throw InputException.of(CONTAINS_EMPTY_INPUT.getMessage());
         }
     }

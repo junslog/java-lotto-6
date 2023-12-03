@@ -2,6 +2,7 @@ package lotto.view.output;
 
 import static lotto.view.output.constant.OutputFormatConstant.PRINT_NUMBER_OF_LOTTOS_BOUGHT_FORMAT;
 import static lotto.view.output.constant.OutputMessageConstant.ASK_TO_INSERT_LOTTO_MONEY;
+import static lotto.view.output.constant.OutputMessageConstant.ASK_TO_INSERT_WINNING_LOTTO_NUMBERS;
 import static lotto.view.output.constant.OutputSymbolConstant.LOTTO_NUMBER_JOINING_DELIMITER;
 import static lotto.view.output.constant.OutputSymbolConstant.LOTTO_NUMBER_OUTPUT_LEFT_BRACE;
 import static lotto.view.output.constant.OutputSymbolConstant.LOTTO_NUMBER_OUTPUT_RIGHT_BRACE;
@@ -40,6 +41,12 @@ public class OutputView {
         );
     }
 
+    public void askToInsertWinningLottoNumbers() {
+        printLine();
+        print(ASK_TO_INSERT_WINNING_LOTTO_NUMBERS.getMessage());
+        printLine();
+    }
+
     private void print(String message) {
         System.out.print(message);
     }
@@ -47,4 +54,6 @@ public class OutputView {
     private void printLine() {
         print(NEW_LINE.getSymbol());
     }
+
+
 }

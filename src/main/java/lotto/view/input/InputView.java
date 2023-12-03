@@ -1,6 +1,7 @@
 package lotto.view.input;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.List;
 import lotto.view.input.parser.InputParser;
 
 public class InputView {
@@ -14,7 +15,12 @@ public class InputView {
         return inputParser.parseToUserMoney(readLine());
     }
 
+    public List<Integer> getWinningLottoNumbers() {
+        return inputParser.parseToWinningLottoNumbers(readLine());
+    }
+
     public String readLine() {
         return Console.readLine();
     }
+
 }

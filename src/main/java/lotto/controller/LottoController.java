@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import lotto.domain.Lotto;
 import lotto.domain.UserMoney;
+import lotto.domain.WinningLottoNumbers;
 import lotto.domain.util.LottoFactory;
 import lotto.dto.BoughtLottoNumbersDto;
 import lotto.dto.BoughtLottoNumbersDtos;
@@ -24,6 +25,7 @@ public class LottoController {
         UserMoney userMoney = getUserMoney();
         List<Lotto> generatedLottos = LottoFactory.generateAutoLottosByMoney(userMoney);
         printUserLottos(generatedLottos);
+        WinningLottoNumbers winningLottoNumbers = getWinningLottoNumbers();
     }
 
     private UserMoney getUserMoney() {
@@ -47,6 +49,13 @@ public class LottoController {
                 .sorted()
                 .forEach(lottoNumber -> lottoNumbers.add(lottoNumber.getNumber()));
         return new BoughtLottoNumbersDto(lottoNumbers);
+    }
+
+    private WinningLottoNumbers getWinningLottoNumbers() {
+        return readUserInput(() -> {
+            outputView.askToInsertWinningLottoNumbers();
+            return new WinningLottoNumbers(inputView.getWinningLottoNumbers());
+        });
     }
 
 
