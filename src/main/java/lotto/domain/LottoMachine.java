@@ -3,6 +3,8 @@ package lotto.domain;
 import java.util.EnumMap;
 
 public class LottoMachine {
+    private static final int rateOfReturnScaleDecimalPoint = 3;
+    private static final double rateOfReturnScale = Math.pow(10, rateOfReturnScaleDecimalPoint);
     private final WinningLottoNumbers winningLottoNumbers;
     private final BonusNumber bonusNumber;
 
@@ -33,6 +35,14 @@ public class LottoMachine {
             int winNumber = lottoResults.get(lottoResult);
             earnedMoney += winNumber * lottoResult.getPrizeMoney();
         }
-        return Math.round((((double) earnedMoney / userMoney * 10) / 10.0) * 100);
+        return convertToPercentage(toGivenScale((double) earnedMoney / userMoney, rateOfReturnScale));
+    }
+
+    private double toGivenScale(double value, double decimalPointScale) {
+        return Math.round(value * decimalPointScale) / decimalPointScale;
+    }
+
+    private double convertToPercentage(double valueWithGivenScale) {
+        return valueWithGivenScale * 100;
     }
 }

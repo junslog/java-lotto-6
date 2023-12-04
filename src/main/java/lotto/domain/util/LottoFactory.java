@@ -1,6 +1,5 @@
 package lotto.domain.util;
 
-import static lotto.domain.LottoConstants.LOTTO_LENGTH;
 import static lotto.domain.LottoConstants.LOTTO_PRICE;
 
 import java.util.ArrayList;
@@ -25,13 +24,6 @@ public class LottoFactory {
     }
 
     private static List<Integer> generateLottoNumbers() {
-        List<Integer> lottoNumbers = new ArrayList<>();
-        while (lottoNumbers.size() < LOTTO_LENGTH) {
-            int lottoNumber = LottoNumberGenerator.generateLottoNumber();
-            if (!lottoNumbers.contains(lottoNumber)) {
-                lottoNumbers.add(lottoNumber);
-            }
-        }
-        return lottoNumbers;
+        return LottoNumberGenerator.generateLottoNumbers();
     }
 }

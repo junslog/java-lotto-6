@@ -52,7 +52,6 @@ public class InputParser {
                 .toList();
     }
 
-
     private int parseToInt(String userInput) {
         return Integer.parseInt(userInput);
     }

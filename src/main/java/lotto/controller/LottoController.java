@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import lotto.domain.BonusNumber;
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoResult;
 import lotto.domain.UserMoney;
 import lotto.domain.WinningLottoNumbers;
@@ -53,10 +54,11 @@ public class LottoController {
     }
 
     private BoughtLottoNumbersDto getUserLottoPringUnit(Lotto generatedLotto) {
-        List<Integer> lottoNumbers = new ArrayList<>();
-        generatedLotto.getNumbers().stream()
+        List<Integer> lottoNumbers = generatedLotto.getNumbers().stream()
                 .sorted()
-                .forEach(lottoNumber -> lottoNumbers.add(lottoNumber.getNumber()));
+                .mapToInt(LottoNumber::getNumber)
+                .boxed()
+                .toList();
         return new BoughtLottoNumbersDto(lottoNumbers);
     }
 
